@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "mementoai-test"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.111.1"
+uvicorn = "^0.30.3"
+sqlalchemy = "^2.0.31"
+asyncpg = "^0.29.0"
+databases = "^0.9.0"
+pydantic = "^2.8.2"
+python-dotenv = "^1.0.1"
+alembic = "^1.13.2"
+greenlet = "^3.0.3"
+psycopg2-binary = "^2.9.9"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
