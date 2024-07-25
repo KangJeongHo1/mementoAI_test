@@ -6,8 +6,8 @@ import os
 
 load_dotenv()
 
-DATABASE_URL = "postgresql+asyncpg://postgres:tmvlzj12@localhost/memento"
-
+DATABASE_URL = os.getenv("DATABASE_URL")
+print(DATABASE_URL)
 
 Base = declarative_base()
 
