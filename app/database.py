@@ -1,21 +1,20 @@
-# app/database.py
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import DeclarativeMeta, declarative_base
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
-from databases import Database
+from sqlalchemy.ext.declarative import declarative_base
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
 
-DATABASE_URL = os.getenv("DATABASE_URL")
+DATABASE_URL = "postgresql+asyncpg://postgres:tmvlzj12@localhost/memento"
 
-# SQLAlchemy 엔진 및 세션 설정
-engine = create_engine(DATABASE_URL)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# 데이터베이스 객체
-database = Database(DATABASE_URL)
+Base = declarative_base()
 
-# 모델 기반 클래스
-Base: DeclarativeMeta = declarative_base()
+engine = create_async_engine(DATABASE_URL, echo=True)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine, class_=AsyncSession)
+
+async def get_db():
+    async with SessionLocal() as session:
+        yield session
+

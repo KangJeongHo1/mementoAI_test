@@ -1,15 +1,13 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
+from datetime import datetime
 
 Base = declarative_base()
 
-class Url(Base):
+class URL(Base):
     __tablename__ = 'urls'
 
-    id = Column(Integer, primary_key=True)
-    short_url = Column(String(50), nullable=False, unique=True)
-    long_url = Column(String(2048), nullable=False)
-
-    def __repr__(self):
-        return '<Url %r>' % self.short_url
-
+    id = Column(Integer, primary_key=True, index=True)
+    url = Column(String, index=True)  # 원본 URL을 `url`로 변경
+    short_url = Column(String, unique=True, index=True)
+    expiration_date = Column(DateTime, nullable=True)  # 만료 날짜 필드 추가
