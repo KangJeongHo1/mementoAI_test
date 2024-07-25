@@ -3,7 +3,6 @@ from sqlalchemy.future import select
 from . import models
 from datetime import datetime
 from typing import Optional
-import pytz
 
 async def create_url(db: AsyncSession, url: str, short_url: str, expiration_date: Optional[datetime]):
     if expiration_date is not None:
@@ -32,5 +31,5 @@ async def delete_expired_urls(db: AsyncSession):
     result = await db.execute(stmt)
     expired_urls = result.scalars().all()
     for url in expired_urls:
-        await db.delete(url)
+        await db.delete(url)  # AsyncSession을 사용하여 삭제
     await db.commit()
